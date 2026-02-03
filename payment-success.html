@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - Precision Learning</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .success-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        }
+        .success-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            animation: scaleIn 0.5s ease;
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+        .success-card h1 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .success-card p {
+            color: var(--text-medium);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        .next-steps {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            text-align: left;
+        }
+        .next-steps h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .next-steps ol {
+            color: var(--text-medium);
+            padding-left: 1.5rem;
+        }
+        .next-steps li {
+            margin: 0.75rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-card">
+            <div class="success-icon">✅</div>
+            <h1>Payment Successful!</h1>
+            <p>Thank you for your payment. Your tutoring session has been booked successfully.</p>
+            
+            <div class="next-steps">
+                <h3>What's Next?</h3>
+                <ol>
+                    <li>You'll receive a confirmation email shortly with payment details</li>
+                    <li>I'll contact you via WhatsApp within 24 hours to schedule your session</li>
+                    <li>Please prepare any topics or questions you'd like to focus on</li>
+                    <li>Looking forward to helping you excel in Maths & Physics!</li>
+                </ol>
+            </div>
+            
+            <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+                <a href="index.html" class="btn btn-primary">Back to Home</a>
+                <a href="https://wa.me/27XXXXXXXXX?text=Hi!%20I%20just%20completed%20my%20payment" class="btn btn-whatsapp" target="_blank">
+                    Message on WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
