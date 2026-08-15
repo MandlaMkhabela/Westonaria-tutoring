@@ -70,7 +70,20 @@
             font-size: 0.85rem;
             cursor: pointer;
             transition: var(--transition);
+        }        .btn-delete {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.15s;
         }
+        .btn-delete:hover { background: rgba(239, 68, 68, 0.28); }
+        
         .admin-header .logout-btn:hover { border-color: var(--danger); color: var(--danger); }
         .admin-stats {
             display: grid;
@@ -255,8 +268,9 @@
         <i class="fas fa-info-circle"></i>
         <span id="toastMessage">Message</span>
     </div>
-    <script>
-const API_URL = 'https://west-rand-api-v2.westonaria-connect.workers.dev';        let allQuestions = [];
+        <script>
+const API_URL = 'https://west-rand-api-v2.westonaria-connect.workers.dev';
+        let allQuestions = [];
         let currentTab = 'pending';
         let solvingQuestion = null;
         let solutionImageBase64 = null;
@@ -309,7 +323,7 @@ const API_URL = 'https://west-rand-api-v2.westonaria-connect.workers.dev';      
             cards[0].textContent = stats.total || 0;
             cards[1].textContent = stats.pending || 0;
             cards[2].textContent = stats.solved || 0;
-            cards[3].textContent = 'R' + ((stats.totalRevenue || 0) / 100).toFixed(0);
+            cards[3].textContent = 'R' + ((stats.totalRevenue || 0) / 100).toFixed(2);
             document.getElementById('badgePending').textContent = stats.pending || 0;
             document.getElementById('badgeSolved').textContent = stats.solved || 0;
             document.getElementById('badgeAll').textContent = stats.total || 0;
@@ -341,6 +355,7 @@ const API_URL = 'https://west-rand-api-v2.westonaria-connect.workers.dev';      
                             <span class="meta-tag grade">${q.grade}</span>
                             <span class="meta-tag subject">${q.subject}</span>
                             <span class="meta-tag">${formatDate(q.postedAt)}</span>
+                            <span class="meta-tag" style="background:rgba(255,215,0,0.15);color:#FFD700;">R${(q.price/100).toFixed(2)}</span>
                         </div>
                         <h4>${escapeHtml(q.name)} — ${escapeHtml(q.questionText.substring(0, 60))}${q.questionText.length > 60 ? '...' : ''}</h4>
                         <p>${escapeHtml(q.questionText)}</p>
@@ -350,9 +365,34 @@ const API_URL = 'https://west-rand-api-v2.westonaria-connect.workers.dev';      
                             ? `<button class="btn-solve" onclick="event.stopPropagation(); openSolveModal('${q.id}')">Solve</button>`
                             : `<button class="btn-view" onclick="event.stopPropagation(); viewSolution('${q.id}')">View</button>`
                         }
+                        <button class="btn-delete" onclick="event.stopPropagation(); deleteQuestion('${q.id}')" title="Delete permanently">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
                     </div>
                 </div>
             `).join('');
+        }
+
+        async function deleteQuestion(questionId) {
+            const q = allQuestions.find(x => x.id === questionId);
+            const name = q ? q.name : 'this question';
+            if (!confirm(`Delete question from ${name}?\n\nThis cannot be undone.`)) return;
+            try {
+                const res = await fetch(`${API_URL}/api/admin/delete`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminKey}` },
+                    body: JSON.stringify({ questionId }),
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    showToast('Question deleted', 3000, 'success');
+                    loadAdminData();
+                } else {
+                    showToast(data.error || 'Delete failed', 4000, 'error');
+                }
+            } catch (err) {
+                showToast('Network error during delete', 4000, 'error');
+            }
         }
 
         function openSolveModal(questionId) {

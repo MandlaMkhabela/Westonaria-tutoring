@@ -16,7 +16,7 @@ const YOCO_SECRET_KEY = TEST_MODE
   : '';
 
 const ADMIN_SECRET = 'MoonRiver89Drifts#Up';
-const DEFAULT_PRICE_CENTS = 2500;
+const DEFAULT_PRICE_CENTS = 200;
 
 const ALLOWED_ORIGINS = [
   'http://localhost:8000',
