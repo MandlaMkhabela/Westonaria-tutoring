@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — West Rand Exam Prep</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-page { min-height: 100vh; display: flex; flex-direction: column; }
+        .admin-main { flex: 1; padding: 32px 0; }
+        .admin-login {
+            max-width: 400px;
+            margin: 80px auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            text-align: center;
+        }
+        .admin-login .logo { justify-content: center; margin-bottom: 24px; }
+        .admin-login h2 { font-family: var(--font-heading); margin-bottom: 8px; }
+        .admin-login p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 24px; }
+        .admin-login input {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            margin-bottom: 16px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        .admin-login input:focus { outline: none; border-color: var(--cyan); }
+        .admin-login button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--brand-red), var(--brand-red-dark));
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .admin-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .admin-header h1 { font-family: var(--font-heading); font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
+        .admin-header h1 i { color: var(--cyan); }
+        .admin-header .logout-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .admin-header .logout-btn:hover { border-color: var(--danger); color: var(--danger); }
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-card i { font-size: 1.4rem; margin-bottom: 8px; display: block; }
+        .stat-card .num { font-family: var(--font-heading); font-size: 1.6rem; display: block; }
+        .stat-card .label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-card.total i { color: var(--cyan); }
+        .stat-card.pending i { color: var(--warning); }
+        .stat-card.solved i { color: var(--success); }
+        .stat-card.revenue i { color: #A78BFA; }
+        .admin-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .admin-tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: -1px;
+        }
+        .admin-tab:hover { color: var(--text); }
+        .admin-tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+        .admin-tab .badge {
+            display: inline-block;
+            background: var(--brand-red);
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50px;
+            margin-left: 6px;
+        }
+        .admin-list { display: flex; flex-direction: column; gap: 12px; }
+        .admin-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .admin-item:hover { border-color: var(--border-light); }
+        .admin-item .item-img {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--bg-elevated);
+            flex-shrink: 0;
+        }
+        .admin-item .item-img img { width: 100%; height: 100%; object-fit: cover; }
+        .admin-item .item-img .no-img {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); font-size: 1.5rem;
+        }
+        .admin-item .item-info { flex: 1; min-width: 0; }
+        .admin-item .item-info h4 { font-size: 0.95rem; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .admin-item .item-info .item-meta { display: flex; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
+        .admin-item .item-info p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .admin-item .item-action {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .admin-item .item-action button {
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+        }
+        .btn-solve { background: linear-gradient(135deg, var(--brand-red), var(--brand-red-dark)); color: #fff; }
+        .btn-view { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text-secondary); }
+        .solve-modal .modal-content { max-width: 640px; }
+        .solve-question-preview {
+            background: var(--bg-elevated);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        .solve-question-preview h4 { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .solve-question-preview img { width: 100%; max-height: 200px; object-fit: contain; background: var(--bg); border-radius: 6px; margin-bottom: 8px; }
+        .solve-question-preview p { font-size: 0.9rem; line-height: 1.5; }
+        @media (max-width: 600px) {
+            .admin-item { flex-direction: column; }
+            .admin-item .item-img { width: 100%; height: 140px; }
+            .admin-item .item-action { flex-direction: row; }
+            .admin-stats { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body class="admin-page">
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"><i class="fas fa-graduation-cap"></i></span>
+                    <div class="logo-text">
+                        <span class="logo-first">West Rand</span>
+                        <span class="logo-second">EXAM PREP</span>
+                    </div>
+                </a>
+            </nav>
+        </div>
+    </header>
+    <main class="admin-main">
+        <div class="container">
+            <div id="loginScreen" class="admin-login">
+                <div class="logo">
+                    <span class="logo-icon"><i class="fas fa-shield-alt"></i></span>
+                    <div class="logo-text">
+                        <span class="logo-first">Admin</span>
+                        <span class="logo-second">DASHBOARD</span>
+                    </div>
+                </div>
+                <h2>Admin Access</h2>
+                <p>Enter your secret key to manage questions and solutions.</p>
+                <input type="password" id="adminKey" placeholder="Secret Key" onkeydown="if(event.key==='Enter')doLogin()">
+                <button onclick="doLogin()">Enter Dashboard</button>
+            </div>
+            <div id="dashboardScreen" class="hidden">
+                <div class="admin-header">
+                    <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
+                    <button class="logout-btn" onclick="doLogout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+                <div class="admin-stats" id="adminStats">
+                    <div class="stat-card total"><i class="fas fa-question-circle"></i><span class="num">—</span><span class="label">Total</span></div>
+                    <div class="stat-card pending"><i class="fas fa-clock"></i><span class="num">—</span><span class="label">Pending</span></div>
+                    <div class="stat-card solved"><i class="fas fa-check-circle"></i><span class="num">—</span><span class="label">Solved</span></div>
+                    <div class="stat-card revenue"><i class="fas fa-coins"></i><span class="num">—</span><span class="label">Revenue</span></div>
+                </div>
+                <div class="admin-tabs">
+                    <button class="admin-tab active" onclick="switchTab('pending')">Pending <span class="badge" id="badgePending">0</span></button>
+                    <button class="admin-tab" onclick="switchTab('solved')">Solved <span class="badge" id="badgeSolved">0</span></button>
+                    <button class="admin-tab" onclick="switchTab('all')">All <span class="badge" id="badgeAll">0</span></button>
+                </div>
+                <div class="admin-list" id="adminList">
+                    <div class="loading-state"><i class="fas fa-spinner fa-spin"></i><p>Loading...</p></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="modal-overlay solve-modal" id="solveModal">
+        <div class="modal-content modal-lg">
+            <button class="close-modal" onclick="closeSolveModal()">&times;</button>
+            <div class="modal-header">
+                <h2><i class="fas fa-pen"></i> Submit Solution</h2>
+                <p>Write or upload the step-by-step solution.</p>
+            </div>
+            <div id="solveModalBody" style="padding: 0 28px 28px;"></div>
+        </div>
+    </div>
+    <div class="toast" id="toast">
+        <i class="fas fa-info-circle"></i>
+        <span id="toastMessage">Message</span>
+    </div>
+    <script>
+const API_URL = 'https://west-rand-backend.westonaria-connect.workers.dev';        let adminKey = sessionStorage.getItem('adminKey') || '';
+        let allQuestions = [];
+        let currentTab = 'pending';
+        let solvingQuestion = null;
+        let solutionImageBase64 = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (adminKey) showDashboard();
+        });
+
+        function doLogin() {
+            const key = document.getElementById('adminKey').value.trim();
+            if (!key) return;
+            adminKey = key;
+            sessionStorage.setItem('adminKey', key);
+            showDashboard();
+        }
+
+        function doLogout() {
+            adminKey = '';
+            sessionStorage.removeItem('adminKey');
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('dashboardScreen').classList.add('hidden');
+        }
+
+        function showDashboard() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('dashboardScreen').classList.remove('hidden');
+            loadAdminData();
+        }
+
+        async function loadAdminData() {
+            try {
+                const [questionsRes, statsRes] = await Promise.all([
+                    fetch(`${API_URL}/api/admin/questions`, { headers: { 'Authorization': `Bearer ${adminKey}` } }),
+                    fetch(`${API_URL}/api/admin/stats`, { headers: { 'Authorization': `Bearer ${adminKey}` } })
+                ]);
+                if (!questionsRes.ok || !statsRes.ok) throw new Error('Unauthorized');
+                const qData = await questionsRes.json();
+                const sData = await statsRes.json();
+                allQuestions = qData.questions || [];
+                updateStats(sData);
+                renderList();
+            } catch (err) {
+                showToast('Access denied. Check your secret key.', 4000, 'error');
+                doLogout();
+            }
+        }
+
+        function updateStats(stats) {
+            const cards = document.querySelectorAll('.stat-card .num');
+            cards[0].textContent = stats.total || 0;
+            cards[1].textContent = stats.pending || 0;
+            cards[2].textContent = stats.solved || 0;
+            cards[3].textContent = 'R' + ((stats.totalRevenue || 0) / 100).toFixed(0);
+            document.getElementById('badgePending').textContent = stats.pending || 0;
+            document.getElementById('badgeSolved').textContent = stats.solved || 0;
+            document.getElementById('badgeAll').textContent = stats.total || 0;
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            renderList();
+        }
+
+        function renderList() {
+            const list = document.getElementById('adminList');
+            let filtered = allQuestions;
+            if (currentTab === 'pending') filtered = allQuestions.filter(q => q.status === 'pending');
+            else if (currentTab === 'solved') filtered = allQuestions.filter(q => q.status === 'solved');
+            if (filtered.length === 0) {
+                list.innerHTML = `<div class="empty-state" style="padding: 40px;"><i class="fas fa-inbox"></i><h3>No ${currentTab} questions</h3></div>`;
+                return;
+            }
+            list.innerHTML = filtered.map(q => `
+                <div class="admin-item" onclick="${q.status === 'pending' ? `openSolveModal('${q.id}')` : `viewSolution('${q.id}')`}">
+                    <div class="item-img">
+                        ${q.imageBase64 ? `<img src="${q.imageBase64}" alt="">` : `<div class="no-img"><i class="fas fa-image"></i></div>`}
+                    </div>
+                    <div class="item-info">
+                        <div class="item-meta">
+                            <span class="meta-tag grade">${q.grade}</span>
+                            <span class="meta-tag subject">${q.subject}</span>
+                            <span class="meta-tag">${formatDate(q.postedAt)}</span>
+                        </div>
+                        <h4>${escapeHtml(q.name)} — ${escapeHtml(q.questionText.substring(0, 60))}${q.questionText.length > 60 ? '...' : ''}</h4>
+                        <p>${escapeHtml(q.questionText)}</p>
+                    </div>
+                    <div class="item-action">
+                        ${q.status === 'pending'
+                            ? `<button class="btn-solve" onclick="event.stopPropagation(); openSolveModal('${q.id}')">Solve</button>`
+                            : `<button class="btn-view" onclick="event.stopPropagation(); viewSolution('${q.id}')">View</button>`
+                        }
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openSolveModal(questionId) {
+            const q = allQuestions.find(q => q.id === questionId);
+            if (!q) return;
+            solvingQuestion = q;
+            solutionImageBase64 = null;
+            const body = document.getElementById('solveModalBody');
+            body.innerHTML = `
+                <div class="solve-question-preview">
+                    <h4>Question to Solve</h4>
+                    ${q.imageBase64 ? `<img src="${q.imageBase64}" alt="Question">` : ''}
+                    <p>${escapeHtml(q.questionText)}</p>
+                    <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 8px;">Posted by ${escapeHtml(q.name)} (${q.email})</p>
+                </div>
+                <div class="form-group">
+                    <label>Solution *</label>
+                    <textarea id="solutionText" rows="6" placeholder="Type your step-by-step solution here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Solution Image (optional)</label>
+                    <div class="image-upload" id="solutionImageUpload">
+                        <input type="file" id="solutionImageInput" accept="image/*" onchange="handleSolutionImage(event)">
+                        <div class="upload-placeholder" id="solUploadPlaceholder">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Upload a photo of your worked solution</span>
+                        </div>
+                        <div class="upload-preview hidden" id="solUploadPreview">
+                            <img id="solPreviewImg" alt="Preview">
+                            <button type="button" class="remove-image" onclick="removeSolutionImage()"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeSolveModal()">Cancel</button>
+                    <button type="button" class="btn-primary" onclick="submitSolution()"><i class="fas fa-paper-plane"></i> Submit Solution</button>
+                </div>
+            `;
+            document.getElementById('solveModal').classList.add('active');
+        }
+
+        function closeSolveModal() {
+            document.getElementById('solveModal').classList.remove('active');
+            solvingQuestion = null;
+            solutionImageBase64 = null;
+        }
+
+        function handleSolutionImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            if (file.size > 2 * 1024 * 1024) {
+                showToast('Image too large. Max 2MB.', 4000, 'error');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                solutionImageBase64 = e.target.result;
+                document.getElementById('solUploadPlaceholder').classList.add('hidden');
+                document.getElementById('solUploadPreview').classList.remove('hidden');
+                document.getElementById('solPreviewImg').src = solutionImageBase64;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeSolutionImage() {
+            solutionImageBase64 = null;
+            document.getElementById('solutionImageInput').value = '';
+            document.getElementById('solUploadPlaceholder').classList.remove('hidden');
+            document.getElementById('solUploadPreview').classList.add('hidden');
+        }
+
+        async function submitSolution() {
+            const text = document.getElementById('solutionText')?.value.trim();
+            if (!text) {
+                showToast('Please write a solution.', 3000, 'error');
+                return;
+            }
+            try {
+                const res = await fetch(`${API_URL}/api/admin/solution`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminKey}` },
+                    body: JSON.stringify({ questionId: solvingQuestion.id, solutionText: text, solutionImageBase64: solutionImageBase64 }),
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    showToast('Solution submitted!', 3000, 'success');
+                    closeSolveModal();
+                    loadAdminData();
+                } else {
+                    showToast(data.error || 'Failed to submit.', 4000, 'error');
+                }
+            } catch (err) {
+                showToast('Network error.', 4000, 'error');
+            }
+        }
+
+        function viewSolution(questionId) {
+            const q = allQuestions.find(q => q.id === questionId);
+            if (!q) return;
+            const body = document.getElementById('solveModalBody');
+            body.innerHTML = `
+                <div class="solve-question-preview">
+                    <h4>Question</h4>
+                    ${q.imageBase64 ? `<img src="${q.imageBase64}" alt="Question">` : ''}
+                    <p>${escapeHtml(q.questionText)}</p>
+                </div>
+                <div style="background: var(--bg-elevated); border-radius: var(--radius-sm); padding: 20px;">
+                    <h4 style="color: var(--success); margin-bottom: 12px;"><i class="fas fa-check-circle"></i> Solution</h4>
+                    ${q.solutionImageBase64 ? `<img src="${q.solutionImageBase64}" style="width: 100%; max-height: 300px; object-fit: contain; background: var(--bg); border-radius: 6px; margin-bottom: 12px;">` : ''}
+                    <p style="white-space: pre-wrap; line-height: 1.7;">${escapeHtml(q.solutionText)}</p>
+                </div>
+                <div class="form-actions" style="margin-top: 16px;">
+                    <button type="button" class="btn-secondary" onclick="closeSolveModal()">Close</button>
+                </div>
+            `;
+            document.getElementById('solveModal').classList.add('active');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatDate(iso) {
+            if (!iso) return '';
+            const d = new Date(iso);
+            return d.toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+        }
+
+        function showToast(msg, duration = 4000, type = 'info') {
+            const toast = document.getElementById('toast');
+            const txt = document.getElementById('toastMessage');
+            toast.className = 'toast ' + type;
+            txt.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), duration);
+        }
+
+        document.getElementById('solveModal')?.addEventListener('click', (e) => {
+            if (e.target === document.getElementById('solveModal')) closeSolveModal();
+        });
+    </script>
+</body>
+</html>

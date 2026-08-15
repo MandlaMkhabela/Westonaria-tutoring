@@ -2,7 +2,7 @@
    WEST RAND EXAM PREP — Q&A Frontend
    ============================================ */
 
-const API_URL = 'https://REPLACE_WITH_YOUR_WORKER.workers.dev';
+const API_URL = 'https://west-rand-backend.westonaria-connect.workers.dev';
 const SITE_URL = window.location.origin;
 
 let allQuestions = [];
