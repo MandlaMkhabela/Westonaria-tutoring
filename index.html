@@ -1,162 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>West Rand Exam Prep — Matric &amp; Grade 11 Trial Exam Packs</title>
-<meta name="description" content="Video lessons, notes and past paper solutions for Matric and Grade 11 trial exams across the West Rand. Instant access after payment.">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>West Rand Exam Prep — Ask & Unlock Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="West Rand Exam Prep — post your Matric & Grade 11 exam questions, unlock step-by-step solutions.">
+    <meta name="theme-color" content="#991B1B">
+<base target="_blank">
 </head>
 <body>
-
-<!-- Urgency banner -->
-<div class="wr-urgency-banner" id="trial-countdown">⏳ Trials are almost here — get sorted tonight</div>
-
-<!-- Header -->
-<header class="wr-header">
-    <div class="wr-container wr-navbar">
-        <div class="wr-logo"><span class="wr-logo-first">West Rand</span> <span class="wr-logo-second">EXAM PREP</span></div>
-        <nav class="wr-nav-links">
-            <a href="#subjects">Subjects</a>
-            <a href="#how-it-works">How It Works</a>
-            <a href="#faq">FAQ</a>
-            <a href="#contact">Contact</a>
-            <button class="wr-btn wr-btn-whatsapp wa-help-btn"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</button>
-        </nav>
-        <button class="wr-mobile-btn" aria-label="Menu"><i class="fas fa-bars"></i></button>
-    </div>
-</header>
-
-<!-- Hero -->
-<section class="wr-hero">
-    <div class="wr-container">
-        <h1>Walk into your trials <span class="highlight">fully prepared</span></h1>
-        <p>Video lessons, topic notes, and full past-paper solutions for every Matric and Grade 11 subject — unlocked instantly after payment.</p>
-        <div class="wr-hero-buttons">
-            <a href="#subjects" class="wr-btn wr-btn-primary wr-btn-large"><i class="fas fa-bolt"></i> Browse Subject Packs</a>
-            <button class="wr-btn wr-btn-outline wr-btn-large wa-help-btn"><i class="fab fa-whatsapp"></i> Ask a Question</button>
-        </div>
-        <div class="wr-trust-row">
-            <span><i class="fas fa-bolt"></i> Instant access after payment</span>
-            <span><i class="fas fa-lock"></i> Secure checkout via Yoco</span>
-            <span><i class="fas fa-file-download"></i> Past papers included</span>
-        </div>
-    </div>
-</section>
-
-<!-- How it works -->
-<section class="wr-section" id="how-it-works">
-    <div class="wr-container">
-        <h2 class="wr-section-title">How it works</h2>
-        <p class="wr-section-subtitle">Three steps between you and everything you need for the trials.</p>
-        <div class="wr-steps">
-            <div class="wr-step">
-                <div class="wr-step-number">1</div>
-                <h3>Pick your subject</h3>
-                <p>Choose your grade and subject, or grab the full bundle for every subject at once.</p>
-            </div>
-            <div class="wr-step">
-                <div class="wr-step-number">2</div>
-                <h3>Pay securely</h3>
-                <p>Checkout in under a minute with card, Instant EFT, or SnapScan via Yoco.</p>
-            </div>
-            <div class="wr-step">
-                <div class="wr-step-number">3</div>
-                <h3>Get instant access</h3>
-                <p>You're taken straight to your video playlist, notes, and downloadable past papers.</p>
+    <div class="urgency-banner">
+        <div class="container">
+            <div class="urgency-inner">
+                <span class="urgency-pulse"></span>
+                <p><strong>Trial exams are coming!</strong> Stuck on a question? Post it here and unlock the solution.</p>
             </div>
         </div>
     </div>
-</section>
-
-<!-- Shop -->
-<section class="wr-section wr-shop" id="subjects">
-    <div class="wr-container">
-        <h2 class="wr-section-title">Subject Packs</h2>
-        <p class="wr-section-subtitle">Every pack includes a full video playlist, summary notes, past paper solutions, and a folder of downloadable past papers.</p>
-
-        <div class="wr-tabs">
-            <button class="wr-tab active" data-target="panel-g12">Grade 12 (Matric)</button>
-            <button class="wr-tab" data-target="panel-g11">Grade 11</button>
-            <button class="wr-tab" data-target="panel-bundles">Bundles</button>
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"><i class="fas fa-graduation-cap"></i></span>
+                    <div class="logo-text">
+                        <span class="logo-first">West Rand</span>
+                        <span class="logo-second">EXAM PREP</span>
+                    </div>
+                </a>
+                <div class="header-actions">
+                    <button class="btn-post" onclick="openPostModal()">
+                        <i class="fas fa-plus"></i>
+                        <span>Post a Question</span>
+                    </button>
+                </div>
+            </nav>
         </div>
-
-        <div class="wr-tab-panel active" id="panel-g12">
-            <div class="wr-grid" id="grid-g12"></div>
+    </header>
+    <section class="hero qa-hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-unlock-alt"></i>
+                    <span>Post Free. Pay Only to Unlock Solutions.</span>
+                </div>
+                <h1 class="hero-title">Stuck on a <span class="highlight">Matric</span> or <span class="highlight">Grade 11</span> Question?</h1>
+                <p class="hero-subtitle">Post any exam problem — past paper, trial, homework, test prep. Everyone sees the question. Pay a small fee to unlock the full worked solution.</p>
+                <div class="hero-stats">
+                    <div class="stat"><span class="stat-number" id="statTotal">0</span><span class="stat-label">Questions</span></div>
+                    <div class="stat"><span class="stat-number" id="statSolved">0</span><span class="stat-label">Solved</span></div>
+                    <div class="stat"><span class="stat-number" id="statPending">0</span><span class="stat-label">Pending</span></div>
+                </div>
+                <button class="hero-cta" onclick="openPostModal()">
+                    <i class="fas fa-camera"></i> Post Your Question Now
+                </button>
+            </div>
         </div>
-
-        <div class="wr-tab-panel" id="panel-g11">
-            <div class="wr-grid" id="grid-g11"></div>
+    </section>
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <label><i class="fas fa-filter"></i> Filter:</label>
+                    <select id="filterGrade" onchange="applyFilters()">
+                        <option value="">All Grades</option>
+                        <option value="Grade 12">Grade 12 (Matric)</option>
+                        <option value="Grade 11">Grade 11</option>
+                    </select>
+                    <select id="filterSubject" onchange="applyFilters()">
+                        <option value="">All Subjects</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Mathematical Literacy">Maths Lit</option>
+                        <option value="Physical Sciences">Physical Sciences</option>
+                        <option value="Life Sciences">Life Sciences</option>
+                        <option value="Accounting">Accounting</option>
+                        <option value="Business Studies">Business Studies</option>
+                        <option value="Economics">Economics</option>
+                        <option value="English">English</option>
+                        <option value="History">History</option>
+                        <option value="Geography">Geography</option>
+                    </select>
+                    <select id="filterStatus" onchange="applyFilters()">
+                        <option value="">All Status</option>
+                        <option value="solved">Solved Only</option>
+                        <option value="pending">Pending Only</option>
+                    </select>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search questions..." oninput="applyFilters()">
+                </div>
+            </div>
         </div>
-
-        <div class="wr-tab-panel" id="panel-bundles">
-            <div class="wr-grid" id="grid-bundles"></div>
+    </section>
+    <section class="feed-section" id="feed">
+        <div class="container">
+            <div class="feed-header">
+                <h2><i class="fas fa-stream"></i> Question Feed</h2>
+                <p>Newest questions first — browse, learn, or unlock solutions</p>
+            </div>
+            <div class="questions-grid" id="questionsGrid">
+                <div class="loading-state"><i class="fas fa-spinner fa-spin"></i><p>Loading questions...</p></div>
+            </div>
+            <div class="empty-state hidden" id="emptyState">
+                <i class="fas fa-inbox"></i>
+                <h3>No questions yet</h3>
+                <p>Be the first to post a question and help build this resource for everyone.</p>
+                <button class="btn-primary" onclick="openPostModal()">Post a Question</button>
+            </div>
+        </div>
+    </section>
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <i class="fas fa-camera"></i>
+                    <h3>Snap & Post</h3>
+                    <p>Take a photo of your question or type it out. Choose your subject and grade.</p>
+                </div>
+                <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <i class="fas fa-clock"></i>
+                    <h3>We Solve It</h3>
+                    <p>Our tutor works through the problem and posts a detailed step-by-step solution.</p>
+                </div>
+                <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <i class="fas fa-unlock"></i>
+                    <h3>Unlock to View</h3>
+                    <p>Everyone sees the question. Pay a small fee to unlock the full worked solution.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <div class="cta-text">
+                    <h2>Can't find your question?</h2>
+                    <p>Post it now and get a solution within hours. Every question helps the next student too.</p>
+                </div>
+                <button class="cta-whatsapp" onclick="openPostModal()">
+                    <i class="fas fa-plus-circle"></i><span>Post a Question</span>
+                </button>
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>West Rand Exam Prep. Questions pile up. Solutions unlock. Everyone wins.</p>
+            </div>
+        </div>
+    </footer>
+    <div class="modal-overlay" id="postModal">
+        <div class="modal-content modal-lg">
+            <button class="close-modal" onclick="closePostModal()">&times;</button>
+            <div class="modal-header">
+                <h2><i class="fas fa-plus-circle"></i> Post a Question</h2>
+                <p>Upload a photo or type your question. It's free to post.</p>
+            </div>
+            <form id="postForm" onsubmit="handlePostSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group"><label>Your Name *</label><input type="text" id="postName" required placeholder="e.g. Thabo"></div>
+                    <div class="form-group"><label>Email *</label><input type="email" id="postEmail" required placeholder="your@email.com"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Grade *</label>
+                        <select id="postGrade" required>
+                            <option value="">Select grade</option>
+                            <option value="Grade 12">Grade 12 (Matric)</option>
+                            <option value="Grade 11">Grade 11</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject *</label>
+                        <select id="postSubject" required>
+                            <option value="">Select subject</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Mathematical Literacy">Mathematical Literacy</option>
+                            <option value="Physical Sciences">Physical Sciences</option>
+                            <option value="Life Sciences">Life Sciences</option>
+                            <option value="Accounting">Accounting</option>
+                            <option value="Business Studies">Business Studies</option>
+                            <option value="Economics">Economics</option>
+                            <option value="English">English</option>
+                            <option value="History">History</option>
+                            <option value="Geography">Geography</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Your Question *</label>
+                    <textarea id="postText" rows="4" required placeholder="Type your full question here, or describe what you need help with..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Upload Photo (optional)</label>
+                    <div class="image-upload" id="imageUpload">
+                        <input type="file" id="postImage" accept="image/*" onchange="handleImageSelect(event)">
+                        <div class="upload-placeholder" id="uploadPlaceholder">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Click to upload a photo of your question</span>
+                        </div>
+                        <div class="upload-preview hidden" id="uploadPreview">
+                            <img id="previewImg" alt="Preview">
+                            <button type="button" class="remove-image" onclick="removeImage()"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <small class="form-help">Max 2MB. JPG or PNG.</small>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closePostModal()">Cancel</button>
+                    <button type="submit" class="btn-primary" id="postSubmitBtn"><i class="fas fa-paper-plane"></i> Post Question</button>
+                </div>
+            </form>
         </div>
     </div>
-</section>
-
-<!-- FAQ -->
-<section class="wr-section" id="faq">
-    <div class="wr-container">
-        <h2 class="wr-section-title">Frequently asked questions</h2>
-        <div class="wr-faq">
-            <div class="wr-faq-item">
-                <h4>How do I get my videos and notes after paying?</h4>
-                <p>You're redirected straight back to a delivery page with your YouTube playlist link and your Google Drive folder (notes, memos, and past papers). Save that page — you can also request the links again via WhatsApp with your proof of payment.</p>
-            </div>
-            <div class="wr-faq-item">
-                <h4>What payment methods are accepted?</h4>
-                <p>Card, Instant EFT, and SnapScan/Zapper — all processed securely through Yoco. We never see or store your card details.</p>
-            </div>
-            <div class="wr-faq-item">
-                <h4>Are refunds available?</h4>
-                <p>Because these are digital products delivered instantly, all sales are final once the link is unlocked. If a link doesn't work, message us on WhatsApp and we'll fix it right away.</p>
-            </div>
-            <div class="wr-faq-item">
-                <h4>Which curriculum are these based on?</h4>
-                <p>CAPS-aligned content covering the Grade 11 and Grade 12 (Matric) syllabus set by the Department of Basic Education. This is an independent resource and isn't affiliated with the DBE.</p>
-            </div>
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-content modal-lg">
+            <button class="close-modal" onclick="closeDetailModal()">&times;</button>
+            <div id="detailContent"></div>
         </div>
     </div>
-</section>
-
-<!-- WhatsApp CTA band -->
-<section class="wr-cta-band" id="contact">
-    <div class="wr-container">
-        <h2>Not sure which pack you need?</h2>
-        <p>Send us your subjects and grade on WhatsApp — we'll point you in the right direction.</p>
-        <button class="wr-btn wr-btn-whatsapp wr-btn-large wa-help-btn"><i class="fab fa-whatsapp"></i> Message Us on WhatsApp</button>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="wr-footer">
-    <div class="wr-container">
-        <div class="wr-footer-inner">
-            <div class="wr-footer-brand">
-                <h3>West Rand Exam Prep</h3>
-                <p>Matric &amp; Grade 11 exam resources for Westonaria, Randfontein, Krugersdorp, Carletonville and surrounds.</p>
+    <div class="modal-overlay" id="unlockModal">
+        <div class="modal-content modal-sm">
+            <button class="close-modal" onclick="closeUnlockModal()">&times;</button>
+            <div class="modal-header">
+                <h2><i class="fas fa-lock"></i> Unlock Solution</h2>
+                <p>Pay once, access forever. No subscription.</p>
             </div>
-            <div class="wr-footer-links">
-                <a href="#subjects">Subjects</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#faq">FAQ</a>
-                <a href="#contact">Contact</a>
-            </div>
-        </div>
-        <div class="wr-footer-bottom">
-            &copy; <span id="wr-year"></span> West Rand Exam Prep. Not affiliated with the Department of Basic Education.
+            <div class="unlock-body" id="unlockBody"></div>
         </div>
     </div>
-</footer>
-
-<script src="products.js"></script>
-<script src="script.js"></script>
-<script>document.getElementById('wr-year').textContent = new Date().getFullYear();</script>
+    <div class="toast" id="toast"><i class="fas fa-info-circle"></i><span id="toastMessage">Message</span></div>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p id="loadingText">Processing...</p>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

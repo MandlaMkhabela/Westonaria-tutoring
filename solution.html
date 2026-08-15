@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solution Unlocked — West Rand Exam Prep</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .solution-page { min-height: 100vh; display: flex; flex-direction: column; }
+        .solution-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(16,185,129,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(153,27,27,0.06) 0%, transparent 40%);
+        }
+        .solution-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            max-width: 720px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        .solution-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--success), var(--cyan));
+        }
+        .solution-header {
+            padding: 32px 32px 0;
+            text-align: center;
+        }
+        .solution-header .success-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(0,217,255,0.1));
+            border: 2px solid rgba(16,185,129,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+        .solution-header .success-icon i { font-size: 1.8rem; color: var(--success); }
+        .solution-header h1 { font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 4px; }
+        .solution-header p { color: var(--text-secondary); font-size: 0.9rem; }
+        .question-review {
+            padding: 24px 32px;
+            background: var(--bg-elevated);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .question-review h3 { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        .question-review .meta-tags { display: flex; gap: 6px; margin-bottom: 10px; }
+        .question-review img { width: 100%; max-height: 300px; object-fit: contain; background: var(--bg); border-radius: var(--radius-sm); margin-bottom: 10px; }
+        .question-review .q-text { font-size: 0.95rem; line-height: 1.5; white-space: pre-wrap; }
+        .solution-body { padding: 28px 32px; }
+        .solution-body h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: var(--success);
+        }
+        .solution-body h3 i { font-size: 1.2rem; }
+        .solution-text { font-size: 1rem; line-height: 1.8; white-space: pre-wrap; margin-bottom: 20px; }
+        .solution-image { width: 100%; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 20px; }
+        .solution-image img { width: 100%; max-height: 400px; object-fit: contain; background: var(--bg); }
+        .solution-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            padding: 0 32px 32px;
+            flex-wrap: wrap;
+        }
+        .solution-actions a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .solution-actions .btn-back {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        .solution-actions .btn-back:hover { border-color: var(--text-secondary); color: var(--text); }
+        .solution-actions .btn-primary { background: linear-gradient(135deg, var(--brand-red), var(--brand-red-dark)); color: #fff; }
+        .solution-actions .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(153,27,27,0.3); }
+        .tips-box {
+            margin: 0 32px 24px;
+            padding: 16px 20px;
+            background: rgba(0,217,255,0.05);
+            border: 1px solid rgba(0,217,255,0.15);
+            border-radius: var(--radius-sm);
+        }
+        .tips-box h4 { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--cyan); margin-bottom: 8px; }
+        .tips-box p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0; }
+        .loading-state { padding: 60px 20px; text-align: center; }
+        .loading-state i { font-size: 2rem; color: var(--cyan); margin-bottom: 12px; display: block; }
+        .loading-state p { color: var(--text-secondary); }
+        .error-state { padding: 40px 32px; text-align: center; }
+        .error-state i { font-size: 2.5rem; color: var(--danger); margin-bottom: 16px; }
+        .error-state h2 { font-family: var(--font-heading); margin-bottom: 8px; }
+        .error-state p { color: var(--text-secondary); margin-bottom: 20px; }
+        @media (max-width: 600px) {
+            .solution-header, .question-review, .solution-body, .solution-actions, .tips-box { padding-left: 20px; padding-right: 20px; }
+        }
+    </style>
+</head>
+<body class="solution-page">
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"><i class="fas fa-graduation-cap"></i></span>
+                    <div class="logo-text">
+                        <span class="logo-first">West Rand</span>
+                        <span class="logo-second">EXAM PREP</span>
+                    </div>
+                </a>
+            </nav>
+        </div>
+    </header>
+    <main class="solution-main">
+        <div class="container">
+            <div class="solution-card" id="solutionCard">
+                <div class="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Verifying payment and loading your solution...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="main-footer" style="padding: 20px 0;">
+        <div class="container">
+            <div class="footer-bottom" style="border: none;">
+                <p>Bookmark this page to come back anytime.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        const API_URL = 'https://REPLACE_WITH_YOUR_WORKER.workers.dev';
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const questionId = params.get('question');
+            const card = document.getElementById('solutionCard');
+            if (!questionId) {
+                renderError(card, 'No question specified.');
+                return;
+            }
+            try {
+                const res = await fetch(`${API_URL}/api/questions`);
+                const data = await res.json();
+                const questions = data.questions || [];
+                const q = questions.find(q => q.id === questionId);
+                if (!q) {
+                    renderError(card, 'Question not found.');
+                    return;
+                }
+                const solRes = await fetch(`${API_URL}/api/questions/${questionId}/solution`);
+                const solData = await solRes.json();
+                if (!solRes.ok) {
+                    renderError(card, solData.error || 'Could not load solution. Please contact support.');
+                    return;
+                }
+                renderSolution(card, q, solData);
+            } catch (err) {
+                renderError(card, 'Something went wrong. If you paid successfully, your solution is safe. Contact support if needed.');
+            }
+        });
+        function renderSolution(container, q, solution) {
+            container.innerHTML = `
+                <div class="solution-header">
+                    <div class="success-icon"><i class="fas fa-check"></i></div>
+                    <h1>Payment Successful!</h1>
+                    <p>Your solution is unlocked. Study well!</p>
+                </div>
+                <div class="question-review">
+                    <h3>Original Question</h3>
+                    <div class="meta-tags">
+                        <span class="meta-tag grade">${q.grade}</span>
+                        <span class="meta-tag subject">${q.subject}</span>
+                    </div>
+                    ${q.imageBase64 ? `<img src="${q.imageBase64}" alt="Question">` : ''}
+                    <p class="q-text">${escapeHtml(q.questionText)}</p>
+                </div>
+                <div class="solution-body">
+                    <h3><i class="fas fa-check-circle"></i> Step-by-Step Solution</h3>
+                    ${solution.solutionImageBase64 ? `<div class="solution-image"><img src="${solution.solutionImageBase64}" alt="Solution"></div>` : ''}
+                    <div class="solution-text">${escapeHtml(solution.solutionText)}</div>
+                </div>
+                <div class="tips-box">
+                    <h4><i class="fas fa-lightbulb"></i> Study Tip</h4>
+                    <p>Try to understand each step before moving to the next. If something doesn't make sense, try working through it with a pen and paper yourself. Active practice beats passive reading every time.</p>
+                </div>
+                <div class="solution-actions">
+                    <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Feed</a>
+                    <a href="index.html" class="btn-primary"><i class="fas fa-plus-circle"></i> Post Another Question</a>
+                </div>
+            `;
+        }
+        function renderError(container, message) {
+            container.innerHTML = `
+                <div class="error-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h2>Oops!</h2>
+                    <p>${message}</p>
+                    <div class="solution-actions" style="padding: 0;">
+                        <a href="index.html" class="btn-back">Back to Feed</a>
+                    </div>
+                </div>
+            `;
+        }
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
