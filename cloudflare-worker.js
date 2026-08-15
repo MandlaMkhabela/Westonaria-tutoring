@@ -13,7 +13,7 @@
 const TEST_MODE = true;
 const YOCO_SECRET_KEY = TEST_MODE
   ? 'sk_test_118399e5bBbMmDZac2145cdb09ee'
-  : 'sk_live_7986a9f6bBbMmDZ3359478a87855';
+  : '';
 
 const ADMIN_SECRET = 'MoonRiver89Drifts#Up';
 const DEFAULT_PRICE_CENTS = 2500;
