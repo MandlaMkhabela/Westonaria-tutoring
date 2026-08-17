@@ -77,7 +77,7 @@ function renderQuestions(questions) {
                 <p class="question-text">${escapeHtml(q.questionText)}</p>
                 <div class="question-footer">
                     <span class="question-author">by ${escapeHtml(q.name)}</span>
-                    ${q.status === 'solved' ? `<span class="question-action action-unlock"><i class="fas fa-lock"></i> Unlock R${(q.price / 100).toFixed(0)}</span>` : `<span class="question-action action-waiting"><i class="fas fa-clock"></i> Waiting</span>`}
+                    ${q.status === 'solved' ? `<span class="question-action action-unlock"><i class="fas fa-lock"></i> Unlock Solution R${(q.price / 100).toFixed(0)}</span>` : `<span class="question-action action-waiting"><i class="fas fa-clock"></i> Waiting</span>`}
                 </div>
             </div>
         </div>
