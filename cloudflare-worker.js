@@ -16,7 +16,7 @@ const YOCO_SECRET_KEY = TEST_MODE
   : '';
 
 const ADMIN_SECRET = 'MoonRiver89Drifts#Up';
-const DEFAULT_PRICE_CENTS = 200;
+const DEFAULT_PRICE_CENTS = 200; // R2.00
 
 const ALLOWED_ORIGINS = [
   'http://localhost:8000',
@@ -46,6 +46,7 @@ export default {
       if (path === '/api/admin/questions' && method === 'GET') return await adminListQuestions(request, env, origin);
       if (path === '/api/admin/solution' && method === 'POST') return await adminSubmitSolution(request, env, origin);
       if (path === '/api/admin/stats' && method === 'GET') return await adminStats(request, env, origin);
+      if (path === '/api/admin/delete' && method === 'POST') return await adminDeleteQuestion(request, env, origin);
 
       return jsonResponse({ error: 'Not found' }, 404, origin);
     } catch (err) {
@@ -185,6 +186,34 @@ async function adminSubmitSolution(request, env, origin) {
   q.solutionImageBase64 = solutionImageBase64 || null;
   q.solvedAt = new Date().toISOString();
   await env.QUESTIONS_KV.put(`question:${questionId}`, JSON.stringify(q));
+  return jsonResponse({ success: true }, 200, origin);
+}
+
+async function adminDeleteQuestion(request, env, origin) {
+  if (!checkAdmin(request)) return jsonResponse({ error: 'Unauthorized' }, 401, origin);
+  const body = await request.json();
+  const { questionId } = body;
+  if (!questionId) return jsonResponse({ error: 'Missing questionId' }, 400, origin);
+
+  const qJson = await env.QUESTIONS_KV.get(`question:${questionId}`);
+  if (!qJson) return jsonResponse({ error: 'Question not found' }, 404, origin);
+
+  // Remove from the questions list index
+  const listJson = await env.QUESTIONS_KV.get('questions:list');
+  const ids = listJson ? JSON.parse(listJson) : [];
+  const newIds = ids.filter(id => id !== questionId);
+  await env.QUESTIONS_KV.put('questions:list', JSON.stringify(newIds));
+
+  // Delete the question record itself
+  await env.QUESTIONS_KV.delete(`question:${questionId}`);
+
+  // Clean up any unlock records tied to this question so a re-used
+  // question ID (unlikely, but just in case) doesn't inherit old unlocks
+  const unlocks = await env.QUESTIONS_KV.list({ prefix: `unlock:${questionId}:` });
+  for (const key of unlocks.keys) {
+    await env.QUESTIONS_KV.delete(key.name);
+  }
+
   return jsonResponse({ success: true }, 200, origin);
 }
 
